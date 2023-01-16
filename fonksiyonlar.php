@@ -1,8 +1,5 @@
 <?php
-/*
-Aksoyhlc İş-Proje Takip Scripti
-Copyright (C) 2019 Ökkeş Aksoy
- */
+
 
 
 function aciliyet()
