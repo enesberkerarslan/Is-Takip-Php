@@ -1,4 +1,4 @@
-<?php fnk() ?>
+
 
 </div>
 <!-- End of Content Wrapper -->

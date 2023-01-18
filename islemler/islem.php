@@ -28,6 +28,63 @@ if (isset($_GET['api_key'])) {
 
 
 /********************************************************************************/
+/*Üye Olma İşlemi Giriş*/
+if (isset($_POST['uyeol'])) {
+
+	if (isset($_POST['kul_mail']) AND isset($_POST['kul_sifre']) AND isset($_POST['kul_isim'])) {
+    $kul_mail=guvenlik($_POST['kul_mail']);
+    $kul_sifre=md5($_POST['kul_sifre']);
+    $kul_isim=$_POST['kul_isim'];
+    $kul_telefon=$_POST['kul_telefon'];
+    $kullanicisor=$db->prepare("SELECT * FROM kullanicilar WHERE kul_mail=:mail");
+    $kullanicisor->execute(array(
+      'mail'=> $kul_mail,
+    ));
+    $sonuc=$kullanicisor->rowCount();
+    if ($sonuc<1) {
+      
+
+      $uyeol=$db->prepare("INSERT INTO `kullanicilar` (`kul_isim`, `kul_mail`, `kul_sifre`, `kul_telefon`, `kul_unvan`, `kul_yetki`, `kul_logo`, `ip_adresi`, `session_mail`) VALUES
+      (:kul_isim, :kul_mail, :kul_sifre, :kul_telefon, 'uye', 0, NULL, NULL, '71f8bf01378f00d594dd5080ad9b45ec');
+      ");
+      $uyeol->execute(array(
+        'kul_isim'=> $kul_isim,
+        'kul_mail'=> $kul_mail,
+        'kul_sifre'=> $kul_sifre,
+        'kul_telefon'=> $kul_telefon,
+      ));
+      if ($api) {
+
+        echo json_encode([
+          'durum' => 'ok',
+          'bilgiler' => $kullanicicek
+        ]);
+      } else {
+        header("location:../index.php");
+      }
+
+      header("location:../login?durum=basariliuyelik");
+      exit;
+    } else {
+      if ($api) {
+       echo json_encode([
+        'durum' => 'no',
+        'mesaj' => 'Bu maile kayıtlı kullanıcı mevcut!'
+      ]);
+     } else {
+      header("location:../login?durum=hatauyelik");
+    }
+  }
+} else {
+ echo json_encode([
+  'durum' => 'no',
+  'mesaj' => 'Mail, isim veya Şifre Parametreleri Boş'
+]);
+}
+
+exit;
+}
+
 
 /*Oturum Açma İşlemi Giriş*/
 if (isset($_POST['oturumac'])) {

@@ -33,19 +33,24 @@ $ayarcek=$ayarsor->fetch(PDO::FETCH_ASSOC);
       <div class="card o-hidden border-0 shadow-md" style="min-width: 45%">
        <div class="p-5">
         <div class="text-center">
-          <h2 class="h2 text-gray-900 mb-4">Hoşgeldin</h2>
+          <h2 class="h2 text-gray-900 mb-4">Uye Ol</h2>
         </div>
         <form class="user" action="islemler/islem.php" method="POST">
+        <div class="form-group">
+            <input type="kul_isim" required name="kul_isim" class="form-control form-control-user" id="exampleInputName" placeholder="İsim">
+          </div>
           <div class="form-group">
             <input name="kul_mail" required type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder=" E-Mail ">
           </div>
           <div class="form-group">
+            <input type="kul_telefon" required name="kul_telefon" class="form-control form-control-user" id="exampleInputPhone" placeholder="TelNo">
+          </div>
+          <div class="form-group">
             <input type="password" required name="kul_sifre" class="form-control form-control-user" id="exampleInputPassword" placeholder="Şifre">
           </div>
-          <button name="oturumac" type="submit" class="btn text-white btn-primary btn-user btn-block">Oturum Aç</button>
+          <button name="uyeol" type="submit" class="btn text-white btn-primary btn-user btn-block">Uye Ol</button>
           <hr>           
-          Üye Değil misin?<br>
-          <a href="uyeol.php">Üye Ol</a>
+          <a></a>
           <p class="text-muted text-center"><?php echo $ayarcek['site_baslik'] ?></p>
         </form>
       </div>
@@ -74,29 +79,6 @@ $ayarcek=$ayarsor->fetch(PDO::FETCH_ASSOC);
       type: 'error',
       title: 'Oturum Açma İşlemi Başarısız',
       text: 'Girdiğiniz Bilgileri Kontrol Edin Lütfen',
-      showConfirmButton: true,
-      confirmButtonText: 'Kapat'
-    })
-  </script>
-<?php } ?>
-<?php if (@$_GET['durum']=="hatauyelik")  {?>  
-  <script>
-    Swal.fire({
-      type: 'error',
-      title: 'Girilen Mail adresi ile üyelik mevcut!',
-      text: 'Girdiğiniz Bilgileri Kontrol Edin Lütfen',
-      showConfirmButton: true,
-      confirmButtonText: 'Kapat'
-    })
-  </script>
-<?php } ?>
-
-<?php if (@$_GET['durum']=="basariliuyelik")  {?>  
-  <script>
-    Swal.fire({
-      type: 'success',
-      title: 'Uyelik İşlemi Başarılı',
-      text: 'Giriş yapabilirsiniz',
       showConfirmButton: true,
       confirmButtonText: 'Kapat'
     })
