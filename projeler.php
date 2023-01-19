@@ -165,16 +165,30 @@ include'header.php'
             <td><?php echo $projecek['proje_baslik']; ?></td>
             <td><?php echo $projecek['proje_teslim_tarihi']; ?></td>
             <td><?php 
-            if ($projecek['proje_aciliyet']=="Acil") {
+            if ($projecek['proje_aciliyet']==0) {
               echo '<span class="badge badge-danger" style="font-size:1rem">Acil</span>';
-            } else {
+            }else if($projecek['proje_aciliyet']==1)
+            {
+              echo '<span class="badge badge-primary" style="font-size:1rem">Normal</span>';
+            } else if($projecek['proje_aciliyet']==2)
+            {
+              echo '<span class="badge badge-success" style="font-size:1rem">Acelesi Yok</span>';
+            } 
+            else {
               echo $projecek['proje_aciliyet'];
             }
             ?></td>
             <td><?php 
-            if ($projecek['proje_durum']=="Bitti") {
-              echo '<span class="badge badge-success" style="font-size:1rem">Bitti</span>';
-           } else {
+            if ($projecek['proje_durum']==0) {
+              echo '<span class="badge badge-dark" style="font-size:1rem">Yeni Başladı</span>';
+           }else if($projecek['proje_durum']==1)
+           {
+             echo '<span class="badge badge-info" style="font-size:1rem">Devam Ediyor</span>';
+           } else if($projecek['proje_durum']==2)
+           {
+             echo '<span class="badge badge-success" style="font-size:1rem">Bitti</span>';
+           }  
+           else {
             echo $projecek['proje_durum'];
           }
           ?></td>

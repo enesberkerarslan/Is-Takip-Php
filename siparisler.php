@@ -168,14 +168,27 @@ include'header.php'
                 <td><?php 
                 if ($sipariscek['sip_aciliyet']==0) {
                   echo '<span class="badge badge-danger" style="font-size:1rem">Acil</span>';
-                } else {
+                } else if ($sipariscek['sip_aciliyet']==1)
+                {
+                  echo '<span class="badge badge-primary" style="font-size:1rem">Normal</span>';
+                }else if ($sipariscek['sip_aciliyet']==2)
+                {
+                  echo '<span class="badge badge-warning" style="font-size:1rem">Acelesi Yok</span>';
+                }
+                else {
                   echo aciliyet()[$sipariscek['sip_aciliyet']];
                 }
                 ?></td>
                 <td><?php 
-                if ($sipariscek['sip_durum']==2) {
+                if ($sipariscek['sip_durum']==0) {
+                  echo '<span class="badge badge-dark" style="font-size:1rem">Yeni Başladı</span>';
+                } else if ($sipariscek['sip_durum']==1)
+                {
+                  echo '<span class="badge badge-info" style="font-size:1rem">Devam Ediyor</span>';
+                }else if ($sipariscek['sip_durum']==2)
+                {
                   echo '<span class="badge badge-success" style="font-size:1rem">Bitti</span>';
-                } else {
+                }else {
                   echo durum()[$sipariscek['sip_durum']];
                 }
                 ?></td>

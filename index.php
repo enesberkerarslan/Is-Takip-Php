@@ -367,4 +367,15 @@ include 'footer.php';
     dom: "<'row '<'col-md-6'l><'col-md-6'f><'col-md-4 d-none d-print-block'B>>rtip",
 });
 </script>
+<?php if (@$_GET['durum']=="guncellemebasarili")  {?>  
+	<script>
+    Swal.fire({
+      type: 'success',
+      title: 'Guncelleme Başarılı',
+      text: 'Guncelleme başarılı',
+      showConfirmButton: true,
+      confirmButtonText: 'Kapat'
+    })
+  </script>
+<?php } ?>
 

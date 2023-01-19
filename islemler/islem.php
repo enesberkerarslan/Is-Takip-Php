@@ -45,7 +45,7 @@ if (isset($_POST['uyeol'])) {
       
 
       $uyeol=$db->prepare("INSERT INTO `kullanicilar` (`kul_isim`, `kul_mail`, `kul_sifre`, `kul_telefon`, `kul_unvan`, `kul_yetki`, `kul_logo`, `ip_adresi`, `session_mail`) VALUES
-      (:kul_isim, :kul_mail, :kul_sifre, :kul_telefon, 'uye', 0, NULL, NULL, '71f8bf01378f00d594dd5080ad9b45ec');
+      (:kul_isim, :kul_mail, :kul_sifre, :kul_telefon, 'uye', 0, 'logo-yok.png', NULL, '71f8bf01378f00d594dd5080ad9b45ec');
       ");
       $uyeol->execute(array(
         'kul_isim'=> $kul_isim,
@@ -84,6 +84,10 @@ if (isset($_POST['uyeol'])) {
 
 exit;
 }
+
+/** */
+
+
 
 
 /*Oturum Açma İşlemi Giriş*/
@@ -500,31 +504,20 @@ exit;
 
 
 /********************************************************************************/
-
-
-if (isset($_POST['profilguncelle'])) {
-  if (yetkikontrol()!="yetkili" AND !$api) {
-    header("location:../index.php");
-    exit;
-  }
-
-  if ($api) {
-    $_SESSION['kul_id']=guvenlik($_GET['kul_id']);
-  }
-
+if (isset($_POST['profılguncelle'])) {
 
   $profilguncelle=$db->prepare("UPDATE kullanicilar SET
     kul_isim=:isim,
     kul_mail=:mail,
     kul_telefon=:telefon,
     kul_unvan=:unvan,
-    WHERE kul_id=:kul_id");
+    WHERE kul_mail=:kul_mail");
   $ekleme=$profilguncelle->execute(array(
     'isim' => $_POST['kul_isim'],
     'mail' => $_POST['kul_mail'],
     'telefon' => $_POST['kul_telefon'],
     'unvan' => $_POST['kul_unvan'],
-    'kul_id' => $_SESSION['kul_id']
+    'kul_mail' => $POST['kul_mail']
   ));
 
   if (strlen($_POST['kul_sifre'])>2) {
@@ -540,7 +533,7 @@ if (isset($_POST['profilguncelle'])) {
   }
 
 
-  if ($_FILES['kul_logo']['error']==0) {
+ 
    $yuklemeklasoru = '../dosyalar';
    @$gecici_isim = $_FILES['kul_logo']["tmp_name"];
    @$dosya_ismi = $_FILES['kul_logo']["name"];
@@ -549,12 +542,12 @@ if (isset($_POST['profilguncelle'])) {
    @move_uploaded_file($gecici_isim, "$yuklemeklasoru/$isim");      
 
    $profilguncelle=$db->prepare("UPDATE kullanicilar SET
-    kul_logo=:logo WHERE kul_id=:kul_id");
+    kul_logo=:logo WHERE kul_mail=:kul_mail");
    $ekleme=$profilguncelle->execute(array(
-    'kul_id' => $_SESSION['kul_id'],
+    'kul_mail' => $_SESSION['kul_mail'],
     'logo' => $isim
   ));
- }
+ 
 
  if ($ekleme) {
    if ($api) {
@@ -571,9 +564,12 @@ if (isset($_POST['profilguncelle'])) {
 }
 exit;
 
-
+                                                                                                      
 }
 
+if (isset($_POST['profilguncelle'])) {
+  header("location:../index.php?durum=guncellemebasarili");
+}
 
 /********************************************************************************/
 

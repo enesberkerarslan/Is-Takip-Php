@@ -55,7 +55,7 @@ if (isset($_POST['kul_id'])) {
   }
 </script>
 <div class="container">
-  <form action="islemler/islem.php" method="POST" enctype="multipart/form-data"  data-parsley-validate>
+  <form action="islemler/islem.php" method="POST"  data-parsley-validate>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label>İsim Soyisim</label>
@@ -63,7 +63,7 @@ if (isset($_POST['kul_id'])) {
       </div>
       <div class="form-group col-md-6">
         <label>E-Posta</label>
-        <input type="email" required class="form-control" value="<?php echo $kullanicicek['kul_mail'] ?>" name="kul_mail" placeholder="E-Mail">
+        <input type="text" required class="form-control" value="<?php echo $kullanicicek['kul_mail'] ?>" name="kul_mail" placeholder="E-Mail">
       </div>
     </div>
     <div class="form-row">
@@ -95,10 +95,9 @@ if (isset($_POST['kul_id'])) {
 
     <div class="text-center">
      <button type="submit" name="profilguncelle" class="btn btn-primary">Kaydet</button> 
-   </form>
-   <form class="ml-2" action="sifreguncelle.php" method="POST" accept-charset="utf-8">
-   </form> 
- </div>
+    </div>
+  </form>
+ 
 </div>
 <hr>
 <?php require_once 'footer.php' ?>
@@ -127,3 +126,14 @@ if (isset($_POST['kul_id'])) {
   });
 </script>
 
+<?php if (@$_GET['durum']=="guncellemebasarili")  {?>  
+  <script>
+    Swal.fire({
+      type: 'succcess',
+      title: 'Guncelleme başarılı',
+      text: 'Güncelleme Başarılı',
+      showConfirmButton: true,
+      confirmButtonText: 'Kapat'
+    })
+  </script>
+<?php } ?>
